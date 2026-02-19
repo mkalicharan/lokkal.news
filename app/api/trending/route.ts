@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import type { TrendingResponse } from '@/lib/types';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(): Promise<NextResponse<TrendingResponse>> {
   const [areas, articles] = await Promise.all([
     db.area.findMany({
