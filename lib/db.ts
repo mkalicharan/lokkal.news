@@ -8,10 +8,15 @@ const globalForPrisma = globalThis as unknown as {
 export const db =
   globalForPrisma.prisma ??
   (() => {
-    const connectionString = process.env.DATABASE_URL;
+    const connectionString =
+      process.env.DATABASE_URL ??
+      process.env.POSTGRES_PRISMA_URL ??
+      process.env.POSTGRES_URL;
 
     if (!connectionString) {
-      throw new Error('DATABASE_URL is not set.');
+      throw new Error(
+        'Database connection string is not set. Add DATABASE_URL (or Vercel POSTGRES_PRISMA_URL/POSTGRES_URL).',
+      );
     }
 
     const adapter = new PrismaNeon({ connectionString });
