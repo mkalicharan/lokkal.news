@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { db } from '@/lib/db';
 import { AreaSearchForm } from '@/components/AreaSearchForm';
 
+export const dynamic = 'force-dynamic';
 export default async function HomePage(): Promise<JSX.Element> {
   const trendingPages = await db.area.findMany({
     take: 8,
